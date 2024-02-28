@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 
 use GeoIp2\Database\Reader;
 
-$reader = new Reader('/www/wwwroot/yunss.vip/GeoLite2-Country.mmdb');
+$reader = new Reader('/GeoLite2-Country.mmdb');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
