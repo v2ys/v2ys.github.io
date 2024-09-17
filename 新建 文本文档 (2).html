@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云上冲浪板</title>
+    <!-- Bootstrap CSS from Chinese CDN -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            color: #3b5998;
+        }
+        .center-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+        .logo {
+            width: 64px;
+            height: 60px;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+        .spinner-border {
+            margin-right: 10px;
+            color: #3b5998;
+        }
+        .btn-light {
+            color: white;
+            background-color: #3b5998;
+            font-size: 16px;
+            font-weight: bold;
+            border-color: #3b5998;
+            padding: 6.4px 15px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-light:hover {
+            color: #3b5998;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container center-screen text-center">
+        <img src="/logo.png" alt="Logo" class="logo">
+        <div id="message">
+            正在为您跳转到随机域名，请等待...<br><br>如果长时间未跳转，请手动点击下方的 <b>随机域名</b> 跳转。
+        </div>
+        <div id="domainButtons" class="mt-3">
+            <a href="https://ysclb.665321.xyz" class="btn btn-light m-2">ysclb.665321.xyz</a>
+            <a href="https://yspos.998987.xyz" class="btn btn-light m-2">yspos.998987.xyz</a>
+            <a href="https://yspom.998987.xyz" class="btn btn-light m-2">yspom.998987.xyz</a>
+            <a href="https://ysysb.tvmix.my.id" class="btn btn-light m-2">ysysb.tvmix.my.id</a>
+            <a href="https://yspod.665321.xyz" class="btn btn-light m-2">yspod.665321.xyz</a>
+            <a href="https://yspoz.665321.xyz" class="btn btn-light m-2">yspoz.665321.xyz</a>
+            <a href="https://yspob.665321.xyz" class="btn btn-light m-2">yspob.665321.xyz</a>
+        </div>
+    </div>
+    <script>
+    // JavaScript to handle redirection after a slight delay
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            const wildcardDomains = [
+                "ysclb.665321.xyz", "yspos.998987.xyz", "yspom.998987.xyz", 
+                "ysysb.tvmix.my.id", "yspod.665321.xyz", "yspoz.665321.xyz", 
+                "yspob.665321.xyz"
+            ];
+            const randomIndex = Math.floor(Math.random() * wildcardDomains.length);
+            const randomDomain = wildcardDomains[randomIndex];
+            const url = `https://${randomDomain}`;
+            window.location.href = url;
+        }, 5000); // Wait for 5 seconds before redirecting
+    });
+    </script>
+    <!-- Bootstrap JS, Popper.js, and jQuery from Chinese CDN -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    window.$crisp = [];
+    window.CRISP_WEBSITE_ID = "0976f14f-e138-4a46-9750-893b0c1862a7"; // 填写 Crisp ID
+    (function () {
+        var d = document;
+        var s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+    })();
+    </script>
+</body>
+</html>
