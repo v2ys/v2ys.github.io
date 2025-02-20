@@ -77,21 +77,21 @@
             window.location.href = url;
         }, 5000); // Wait for 5 seconds before redirecting
     });
-<script>
-  (function(d,t) {
-    var BASE_URL="https://chat.998987.xyz";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.defer = true;
-    g.async = true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: 'yGyutaewtN1KSackcieEdGWv',
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
-</script>
+    </script>
+    <!-- Bootstrap JS, Popper.js, and jQuery from Chinese CDN -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    window.$crisp = [];
+    window.CRISP_WEBSITE_ID = "0976f14f-e138-4a46-9750-893b0c1862a7"; // 填写 Crisp ID
+    (function () {
+        var d = document;
+        var s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js";
+        s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+    })();
+    </script>
 </body>
 </html>
