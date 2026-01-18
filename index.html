@@ -3,359 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>云上冲浪板-地址发布页，收藏我回家不迷路！</title>
-    <meta name="description" content="云上冲浪板-地址发布页，收藏我回家不迷路！">
+    <title>云上冲浪板-地址发布页</title>
     <link rel="icon" href="https://s2.loli.net/2023/03/06/d5FHioeLJBnK3mY.jpg" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        @font-face {
-            font-family: 'HarmonyOS Sans SC';
-            src: url('/diy/ziti/HarmonyOS_Sans_SC_Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-        :root {
-            --primary-color: #3b82f6;
-            --secondary-color: #60a5fa;
-            --text-color: #1f2937;
-            --card-background: rgba(255, 255, 255, 0.9);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'HarmonyOS Sans SC', sans-serif;
-            color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(-45deg, #e6f2ff, #fff0f5, #f0f7ff, #fff5e6);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            overflow-x: hidden;
-            font-size: 16px;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .wrapper {
-            padding: 2rem;
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-        }
-        .main {
-            background-color: var(--card-background);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-        .main:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-        ul {
-            list-style-type: none;
-            margin-bottom: 1.5rem;
-        }
-        li {
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background-color: rgba(248, 250, 252, 0.8);
-            border-radius: 10px;
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        li a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-        }
-        li a:hover {
-            color: var(--secondary-color);
-        }
-        li a i {
-            margin-right: 0.5rem;
-            font-size: 1.2em;
-        }
-        .notice {
-            background-color: rgba(230, 242, 255, 0.8);
-            border-left: 4px solid var(--primary-color);
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 10px;
-            transition: var(--transition);
-        }
-        .notice:hover {
-            background-color: rgba(230, 242, 255, 1);
-        }
-        .footer {
-            margin-top: 2rem;
-            text-align: center;
-            color: var(--text-color);
-            font-weight: 300;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-        .footer:hover {
-            opacity: 1;
-        }
-        .bookmark-btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .bookmark-btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .bookmark-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        .bookmark-btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        @keyframes ripple {
-            0% { transform: scale(0, 0); opacity: 1; }
-            20% { transform: scale(25, 25); opacity: 1; }
-            100% { opacity: 0; transform: scale(40, 40); }
-        }
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .bg-animation span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            animation: move 25s infinite linear;
-        }
-        .bg-animation span:nth-child(1) { top: 20%; left: 20%; animation-duration: 15s; }
-        .bg-animation span:nth-child(2) { top: 60%; left: 80%; animation-duration: 17s; width: 40px; height: 40px; }
-        .bg-animation span:nth-child(3) { top: 40%; left: 40%; animation-duration: 19s; }
-        .bg-animation span:nth-child(4) { top: 80%; left: 10%; animation-duration: 21s; }
-        @keyframes move {
-            0% { transform: translateX(0) translateY(0) rotate(0); opacity: 1; border-radius: 0; }
-            100% { transform: translateX(-1000px) translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
-        }
-        @media (max-width: 768px) {
-            body {
-                font-size: calc(14px + 0.390625vw); /* 在移动设备上使用响应式字体大小 */
-            }
-            .main {
-                padding: 2rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-        }
-         .status-badge {
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            margin-left: 10px;
-        }
-        .status-normal {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .status-error {
-            background-color: #f44336;
-            color: white;
-        }
-        li.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        li.disabled a {
-            pointer-events: none;
-        }
+        /* 样式保持不变 */
+        @font-face { font-family: 'HarmonyOS Sans SC'; src: url('/diy/ziti/HarmonyOS_Sans_SC_Regular.woff2') format('woff2'); }
+        :root { --primary-color: #3b82f6; --secondary-color: #60a5fa; --text-color: #1f2937; --card-background: rgba(255, 255, 255, 0.9); --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'HarmonyOS Sans SC', sans-serif; color: var(--text-color); min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(-45deg, #e6f2ff, #fff0f5, #f0f7ff, #fff5e6); background-size: 400% 400%; animation: gradientBG 15s ease infinite; overflow-x: hidden; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .wrapper { padding: 2rem; width: 100%; max-width: 600px; position: relative; }
+        .main { background-color: var(--card-background); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); padding: 2.5rem; backdrop-filter: blur(10px); }
+        h1 { font-size: 2.2rem; color: var(--primary-color); text-align: center; margin-bottom: 1.5rem; }
+        ul { list-style-type: none; margin-bottom: 1.5rem; }
+        li { margin-bottom: 1rem; padding: 1rem; background-color: rgba(248, 250, 252, 0.8); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; transition: var(--transition); cursor: pointer; }
+        li:hover { transform: translateY(-3px); }
+        li a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
+        .bookmark-btn { display: block; width: 100%; padding: 1rem; background-color: var(--primary-color); color: white; text-align: center; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 1.5rem; }
+        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8em; margin-left: 10px; }
+        .status-normal { background-color: #4CAF50; color: white; }
+        .status-error { background-color: #f44336; color: white; }
+        .notice { background-color: rgba(230, 242, 255, 0.8); border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 10px; font-size: 0.9em; }
+        .footer { margin-top: 2rem; text-align: center; opacity: 0.8; font-size: 0.8em; }
     </style>
 </head>
 <body>
-    <div class="bg-animation">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-   <div class="wrapper">
+    <div class="wrapper">
         <main class="main">
             <h1>云上冲浪板-地址发布页</h1>
-            <button class="bookmark-btn">
-                <i class="fas fa-bookmark"></i> Ctrl+D 收藏本页到浏览器收藏夹
-            </button>
+            <button class="bookmark-btn">Ctrl+D 收藏本页</button>
             <ul id="url-list">
                 <li data-url="https://ysroms.qnnn.org/">
                     <span>云上冲浪板（主）</span>
-                    <a href="https://ysroms.qnnn.org/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysroms.qnnn.org
-                    </a>
-                    <span class="status-badge"></span>
+                    <a href="https://ysroms.qnnn.org/" target="_blank">ysroms.qnnn.org</a>
+                    <span class="status-badge">检测中...</span>
                 </li>
                 <li data-url="https://yssos.qnnn.org/">
                     <span>云上冲浪板（备）</span>
-                    <a href="https://yssos.qnnn.org/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> yssos.qnnn.org
-                    </a>
-                    <span class="status-badge"></span>
+                    <a href="https://yssos.qnnn.org/" target="_blank">yssos.qnnn.org</a>
+                    <span class="status-badge">检测中...</span>
                 </li>
                 <li data-url="https://ysaos.qwers.vip/">
                     <span>云上冲浪板（主）</span>
-                    <a href="https://ysaos.qwers.vip/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysaos.qwers.vip
-                    </a>
-                    <span class="status-badge"></span>
+                    <a href="https://ysaos.qwers.vip/" target="_blank">ysaos.qwers.vip</a>
+                    <span class="status-badge">检测中...</span>
                 </li>
                 <li data-url="https://ysros.qnno.de/">
                     <span>云上冲浪板（备）</span>
-                    <a href="https://ysros.qnno.de/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysros.qnno.de
-                    </a>
-                    <span class="status-badge"></span>
+                    <a href="https://ysros.qnno.de/" target="_blank">ysros.qnno.de</a>
+                    <span class="status-badge">检测中...</span>
                 </li> 
                 <li data-url="https://ysros.qnns.de/">
                     <span>云上冲浪板（备）</span>
-                    <a href="https://ysros.qnns.de/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysros.qnns.de
-                    </a>
-                    <span class="status-badge"></span>
-                </li>        
-                <li data-url="https://ysroms.qnns.de/">
-                    <span>云上冲浪板（备）</span>
-                    <a href="https://ysroms.qnns.de/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysroms.qnns.de
-                    </a>
-                    <span class="status-badge"></span>
-                </li> 
-                <li data-url="https://ysroms.qnno.de/">
-                    <span>云上冲浪板（备）</span>
-                    <a href="https://ysroms.qnno.de/" target="_blank">
-                        <i class="fas fa-external-link-alt"></i> ysroms.qnno.de
-                    </a>
-                    <span class="status-badge"></span>
-                </li> 
+                    <a href="https://ysros.qnns.de/" target="_blank">ysros.qnns.de</a>
+                    <span class="status-badge">检测中...</span>
+                </li>
             </ul>
-            <div class="notice">
-                <i class="fas fa-info-circle"></i> 部分中国网络或浏览器会屏蔽网址,打不开请爬梯子🪜访问，谢谢！
-            </div>
+            <div class="notice">打不开请切换网络或🪜访问。</div>
         </main>
-        <footer class="footer">
-            <p>&copy; 2026 云上冲浪板. 保留所有权利。</p>
-        </footer>
+        <footer class="footer">&copy; 2026 云上冲浪板.</footer>
     </div>
-<script>
-  (function(d,t) {
-    var BASE_URL="https://app.chatwoot.com";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.async = true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: 'aWbt5nuEcXkMYaThyMaQeoAn',
-        baseUrl: BASE_URL
-      })
-    }
-  })(document,"script");
-</script>
-
-
-
-
 
     <script>
+        // --- 核心逻辑：兼容所有格式的邀请码提取 ---
+        function getInviteCode() {
+            // 1. 先尝试从标准查询参数获取 (?code=xxx)
+            const urlParams = new URLSearchParams(window.location.search);
+            let code = urlParams.get('code');
+            
+            // 2. 如果没找到，尝试从 # 后面提取 (兼容 /#/register?code=xxx)
+            if (!code && window.location.hash.includes('code=')) {
+                const hashParts = window.location.hash.split('code=');
+                if (hashParts.length > 1) {
+                    code = hashParts[1].split('&')[0];
+                }
+            }
+            return code;
+        }
+
         function checkUrl(url) {
-            return new Promise((resolve, reject) => {
-                fetch(url, { mode: 'no-cors', method: 'HEAD' })
-                    .then(() => resolve(true))
-                    .catch(() => resolve(false));
+            return new Promise((resolve) => {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 4000);
+                fetch(url, { mode: 'no-cors', signal: controller.signal })
+                    .then(() => { clearTimeout(timeout); resolve(true); })
+                    .catch(() => { clearTimeout(timeout); resolve(false); });
             });
         }
 
-        function updateUrlStatus(li, isAccessible) {
-            const statusBadge = li.querySelector('.status-badge');
-            if (isAccessible) {
-                li.classList.remove('disabled');
-                statusBadge.textContent = '正常';
-                statusBadge.className = 'status-badge status-normal';
-            } else {
-                li.classList.add('disabled');
-                statusBadge.textContent = '无法访问';
-                statusBadge.className = 'status-badge status-error';
-            }
+        function updateStatus(li, ok) {
+            const badge = li.querySelector('.status-badge');
+            badge.textContent = ok ? '正常' : '失效';
+            badge.className = 'status-badge ' + (ok ? 'status-normal' : 'status-error');
         }
 
-        async function checkAllUrls() {
-            const urlList = document.getElementById('url-list');
-            const listItems = urlList.querySelectorAll('li');
+        async function init() {
+            const code = getInviteCode();
+            const listItems = document.querySelectorAll('#url-list li');
+            
+            console.log("检测到邀请码:", code);
 
             for (const li of listItems) {
-                const url = li.dataset.url;
-                const isAccessible = await checkUrl(url);
-                updateUrlStatus(li, isAccessible);
+                const baseUrl = li.dataset.url;
+                const isOK = await checkUrl(baseUrl);
+                updateStatus(li, isOK);
+
+                // 只要发现第一个可用的，且有邀请码，就执行跳转
+                if (isOK && code) {
+                    const finalBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+                    const jumpUrl = `${finalBase}#/register?code=${code}`;
+                    console.log("正在跳转到:", jumpUrl);
+                    window.location.href = jumpUrl;
+                    return; // 成功跳转后停止后续检测
+                }
             }
         }
 
-        // 初始检查
-        checkAllUrls();
-
-        // 每5分钟检查一次
-        setInterval(checkAllUrls, 5 * 60 * 1000);
+        init();
     </script>
 </body>
 </html>
