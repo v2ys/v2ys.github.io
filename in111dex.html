@@ -1,177 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi</title>
-    <!-- Bootstrap CSS from Chinese CDN -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>云上冲浪板-地址发布页，收藏我回家不迷路！</title>
+    <meta name="description" content="云上冲浪板-地址发布页，收藏我回家不迷路！">
+    <link rel="icon" href="https://s2.loli.net/2023/03/06/d5FHioeLJBnK3mY.jpg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        @font-face {
+            font-family: 'HarmonyOS Sans SC';
+            src: url('/diy/ziti/HarmonyOS_Sans_SC_Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #60a5fa;
+            --text-color: #1f2937;
+            --card-background: rgba(255, 255, 255, 0.9);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: white;
-            color: #3b5998;
-        }
-
-        .center-screen {
+            font-family: 'HarmonyOS Sans SC', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            height: 100vh;
-        }
-
-        .logo {
-            width: 64px;
-            height: 60px;
-            display: block;
-            margin: 0 auto 20px auto;
-        }
-
-        .spinner-border {
-            margin-right: 10px;
-            color: #3b5998;
-        }
-
-        .btn-light {
-            color: white;
-            background-color: #3b5998;
+            align-items: center;
+            background: linear-gradient(-45deg, #e6f2ff, #fff0f5, #f0f7ff, #fff5e6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
             font-size: 16px;
-            font-weight: bold;
-            border-color: #3b5998;
-            padding: 6.4px 15px;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
-
-        .btn-light:hover {
-            color: #3b5998;
-            background-color: white;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .wrapper { padding: 2rem; width: 100%; max-width: 600px; position: relative; }
+        .main {
+            background-color: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        h1 { font-size: 2.5rem; color: var(--primary-color); text-align: center; margin-bottom: 1.5rem; font-weight: 700; }
+        ul { list-style-type: none; margin-bottom: 1.5rem; }
+        li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(248, 250, 252, 0.8);
+            border-radius: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        li:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        li a { color: var(--primary-color); text-decoration: none; font-weight: bold; display: flex; align-items: center; }
+        li a i { margin-right: 0.5rem; font-size: 1.2em; }
+        .notice { background-color: rgba(230, 242, 255, 0.8); border-left: 4px solid var(--primary-color); padding: 1rem; margin-top: 1rem; border-radius: 10px; }
+        .footer { margin-top: 2rem; text-align: center; color: var(--text-color); font-weight: 300; opacity: 0.8; }
+        .bookmark-btn {
+            display: block; width: 100%; padding: 1rem; background-color: var(--primary-color); color: white;
+            text-align: center; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition); margin-bottom: 1.5rem;
+        }
+        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8em; margin-left: 10px; }
+        .status-normal { background-color: #4CAF50; color: white; }
+        .status-error { background-color: #f44336; color: white; }
+        li.disabled { opacity: 0.5; cursor: not-allowed; }
+        li.disabled a { pointer-events: none; }
+        .bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .bg-animation span { position: absolute; display: block; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.2); animation: move 25s infinite linear; }
+        @keyframes move {
+            0% { transform: translateX(0) translateY(0) rotate(0); opacity: 1; border-radius: 0; }
+            100% { transform: translateX(-1000px) translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
     </style>
 </head>
 <body>
-    <div class="container center-screen text-center">
-        <img src="/logo.png" alt="Logo" class="logo">
-        <div id="message">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            正在查询下方域名的可用性，请等待数秒🔀</br>福建/河南用户请点击以下前四个地址访问我们.
-        </div>
-        <div id="domainButtons" class="mt-3"></div>
+    <div class="bg-animation">
+        <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="wrapper">
+        <main class="main">
+            <h1>云上冲浪板-地址发布页</h1>
+            <button class="bookmark-btn">
+                <i class="fas fa-bookmark"></i> Ctrl+D 收藏本页
+            </button>
+            <ul id="url-list">
+                <li data-url="https://ysroms.qnnn.org/">
+                    <span>云上冲浪板（主）</span>
+                    <a href="https://ysroms.qnnn.org/" target="_blank"><i class="fas fa-external-link-alt"></i> ysroms.qnnn.org</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://yssos.qnnn.org/">
+                    <span>云上冲浪板（备）</span>
+                    <a href="https://yssos.qnnn.org/" target="_blank"><i class="fas fa-external-link-alt"></i> yssos.qnnn.org</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://ysaos.qwers.vip/">
+                    <span>云上冲浪板（主）</span>
+                    <a href="https://ysaos.qwers.vip/" target="_blank"><i class="fas fa-external-link-alt"></i> ysaos.qwers.vip</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://ysros.qnno.de/">
+                    <span>云上冲浪板（备）</span>
+                    <a href="https://ysros.qnno.de/" target="_blank"><i class="fas fa-external-link-alt"></i> ysros.qnno.de</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://ysros.qnns.de/">
+                    <span>云上冲浪板（备）</span>
+                    <a href="https://ysros.qnns.de/" target="_blank"><i class="fas fa-external-link-alt"></i> ysros.qnns.de</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://ysroms.qnns.de/">
+                    <span>云上冲浪板（备）</span>
+                    <a href="https://ysroms.qnns.de/" target="_blank"><i class="fas fa-external-link-alt"></i> ysroms.qnns.de</a>
+                    <span class="status-badge"></span>
+                </li>
+                <li data-url="https://ysroms.qnno.de/">
+                    <span>云上冲浪板（备）</span>
+                    <a href="https://ysroms.qnno.de/" target="_blank"><i class="fas fa-external-link-alt"></i> ysroms.qnno.de</a>
+                    <span class="status-badge"></span>
+                </li>
+            </ul>
+            <div class="notice">
+                <i class="fas fa-info-circle"></i> 打不开请切换网络或🪜访问。
+            </div>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2026 云上冲浪板。</p>
+        </footer>
     </div>
 
-    <script>    
-        const domains = ["ysclb.665321.xyz", "yspos.998987.xyz", "yspom.998987.xyz", "ysysb.tvmix.my.id", "yspod.665321.xyz", "yspoz.665321.xyz", "yspob.665321.xyz",];
-        let triedDomains = [];
-
-        function getRandomDomain() {
-            if (domains.length === triedDomains.length) {
-                showAllDomainsAsButtons();
-                return null;
+    <script>
+        // 提取邀请码 (兼容 ?code= 和 #...code=)
+        function getInviteCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let code = urlParams.get('code');
+            if (!code && window.location.hash.includes('code=')) {
+                const parts = window.location.hash.split('code=');
+                if (parts.length > 1) code = parts[1].split('&')[0];
             }
-
-            let randomDomain;
-            do {
-                randomDomain = domains[Math.floor(Math.random() * domains.length)];
-            } while (triedDomains.includes(randomDomain));
-
-            triedDomains.push(randomDomain);
-            return randomDomain;
+            return code;
         }
 
-        function showAllDomainsAsButtons() {
-            let buttonsHTML = '';
-            domains.forEach(domain => {
-                buttonsHTML += `<a href="https://${domain}" class="btn btn-light m-2">${domain}</a>`;
+        function checkUrl(url) {
+            return new Promise((resolve) => {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 5000);
+                fetch(url, { mode: 'no-cors', signal: controller.signal })
+                    .then(() => { clearTimeout(timeout); resolve(true); })
+                    .catch(() => { clearTimeout(timeout); resolve(false); });
             });
-            document.getElementById('domainButtons').innerHTML = buttonsHTML;
         }
-        function checkDomain() {
-            const domain = getRandomDomain();
-            if (domain) {
-                fetch(`https://${domain}`).then((res) => {
-                  if (res.ok && res.status === 200) {
-                            document.getElementById('message').innerHTML = `🎉Hi, 太棒了，我们找到可用域名🥳<br>👉`;
-                            const domainBtn = `<a href="https://${domain}" target="_blank" class="btn btn-light">${domain}</a>`;
-                            document.getElementById('message').insertAdjacentHTML('beforeend', domainBtn);
-                            document.getElementById('message').insertAdjacentHTML('beforeend', '👈<br>点击打开或等待自动跳转');
-                            setTimeout(() => {
-                                window.location.href = `https://${domain}`;
-                            }, 1200);
-                        } else {
-                            checkDomain();
-                        }
-                    })
-                    .catch(error => {
-                        checkDomain();
-                    });
+
+        function updateUrlStatus(li, ok) {
+            const badge = li.querySelector('.status-badge');
+            if (ok) {
+                li.classList.remove('disabled');
+                badge.textContent = '正常';
+                badge.className = 'status-badge status-normal';
             } else {
-                document.getElementById('message').innerHTML += "<br>如果长时间未查询成功，请点击下方官网自行跳转。<br>↘️也可联系右下角在线客服↘️"; // 添加提示信息而不替换现有的消息
+                li.classList.add('disabled');
+                badge.textContent = '无法访问';
+                badge.className = 'status-badge status-error';
             }
         }
 
-        function checkIPAndRedirect() {
-            fetch('/check_ip.php')
-                .then(response => response.text())
-                .then(data => {
-                    if (data === 'true') {
-                        document.getElementById('message').innerHTML = "似乎你正在使用国际IP访问<br>我们即将直接随机跳转一个域名";
-                        const randomDomain = domains[Math.floor(Math.random() * domains.length)];
-                        setTimeout(() => {
-                            window.location.href = `https://${randomDomain}`;
-                        }, 1200);
-                    } else {
-                        checkDomain();
-                    }
-                })
-                .catch(error => {
-                    checkDomain();
-                });
-        }
+        async function init() {
+            const inviteCode = getInviteCode();
+            const listItems = document.querySelectorAll('#url-list li');
+            let hasJumped = false;
 
-        function checkUserAgentAndOrigin() {
-            const userAgent = navigator.userAgent;
-            const referrer = document.referrer;
+            for (const li of listItems) {
+                const baseUrl = li.dataset.url;
+                const isOK = await checkUrl(baseUrl);
+                updateUrlStatus(li, isOK);
 
-            // 检查用户代理或来源Hosts
-            if (/MicroMessenger/i.test(userAgent) || /QQ\//i.test(userAgent) || /woa/i.test(referrer)) {
-                if (/iPhone|iPod|iPad/i.test(userAgent)) {
-                    alert("请关闭页面并使用 Safari浏览器 打开网站");
-                    document.getElementById('message').innerText = "请关闭页面并使用 Safari浏览器 打开网站";
-                    document.title = "请使用Safari浏览器打开网站";
-                    return true;
-                } else {
-                    alert("请关闭页面并使用 其他浏览器 打开网站");
-                    document.getElementById('message').innerText = "请关闭页面并使用 其他浏览器 打开网站";
-                    document.title = "请使用其他浏览器打开网站";
-                    return true;
+                if (inviteCode && isOK && !hasJumped) {
+                    hasJumped = true;
+                    const finalBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+                    window.location.href = finalBase + `#/register?code=${inviteCode}`;
+                    break;
                 }
             }
-            document.title = "云上冲浪板";
-            showAllDomainsAsButtons();
-            return false;
         }
 
-        setTimeout(() => {
-            if (!checkUserAgentAndOrigin()) {
-                checkIPAndRedirect();
-            }
-        }, 700);
+        init();
+        setInterval(init, 5 * 60 * 1000);
     </script>
-    <!-- Bootstrap JS, Popper.js, and jQuery from Chinese CDN -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "0976f14f-e138-4a46-9750-893b0c1862a7"; // 填写 Crisp ID
-    (function () {
-      d = document;
-      s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = 1;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })();
-  </script>
 </body>
 </html>
