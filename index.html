@@ -201,6 +201,7 @@
     </script>
 
 <script>
+  window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":""};
   (function(d,t) {
     var BASE_URL="https://chat.qnnn.org";
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -214,117 +215,13 @@
       })
     }
   })(document,"script");
-
-  let visitHistory = [];
-
-  async function syncDataToChatwoot() {
-    if (!window.$chatwoot) return;
-    
-    let customAttrs = {};
-
-    // --- A. 记录页面轨迹 ---
-    let path = window.location.hash || window.location.pathname;
-    let title = document.title;
-    if (visitHistory[visitHistory.length - 1] !== path) {
-       visitHistory.push(path);
-       if (visitHistory.length > 5) visitHistory.shift(); 
-    }
-    customAttrs["CurrentPage"] = title + " (" + path + ")";
-    customAttrs["PageHistory"] = visitHistory.join(" ➔ ");
-
-    // --- B. 获取登录凭证 ---
-    let token = localStorage.getItem('authorization') || localStorage.getItem('token') || localStorage.getItem('auth_data');
-    if (token && token.startsWith('{')) {
-      try { token = JSON.parse(token).auth_data; } catch(e) {}
-    }
-
-    if (token) {
-      try {
-        let userData = {};
-        let subData = {};
-
-        // 1. 请求基础信息接口
-        const resInfo = await fetch('/api/v1/user/info', { headers: { 'Authorization': token } });
-        if (resInfo.ok) {
-            const jsonInfo = await resInfo.json();
-            if (jsonInfo.data) userData = jsonInfo.data;
-        }
-
-        // 2. 【核心修复】请求你面板专属的 getSubscribe 接口
-        const resSub = await fetch('/api/v1/user/getSubscribe', { headers: { 'Authorization': token } });
-        if (resSub.ok) {
-            const jsonSub = await resSub.json();
-            if (jsonSub.data) {
-                // 兼容数组或对象格式
-                subData = Array.isArray(jsonSub.data) ? (jsonSub.data[0] || {}) : jsonSub.data;
-            }
-        }
-
-        // 3. 合并数据，优先使用订阅接口里的真实数据
-        const mergedData = { ...userData, ...subData };
-
-        // 4. 安全计算
-        const up_bytes = Number(mergedData.u) || 0;
-        const down_bytes = Number(mergedData.d) || 0;
-        const total_bytes = Number(mergedData.transfer_enable) || 0;
-        const balance_amount = Number(mergedData.balance) || 0;
-        
-        const usedGB = ((up_bytes + down_bytes) / 1073741824).toFixed(2);
-        const totalGB = (total_bytes / 1073741824).toFixed(2);
-        
-        let exp = '长期有效';
-        if (mergedData.expired_at) {
-          const d = new Date(mergedData.expired_at * 1000);
-          exp = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-        }
-
-        let planName = "暂无套餐";
-        if (mergedData.plan && mergedData.plan.name) {
-            planName = mergedData.plan.name;
-        } else if (mergedData.name) {
-            planName = mergedData.name; 
-        }
-
-        // 5. 填充属性
-        customAttrs["Plan"] = planName;
-        customAttrs["ExpireTime"] = exp;
-        customAttrs["UsedTraffic"] = usedGB + " GB";
-        customAttrs["AllTraffic"] = totalGB + " GB";
-        customAttrs["Balance"] = (balance_amount / 100).toFixed(2);
-
-        if (mergedData.email) {
-            window.$chatwoot.setUser(mergedData.email, { email: mergedData.email, name: mergedData.email.split('@')[0] });
-        }
-
-      } catch (error) {
-        console.error("数据同步异常", error);
-      }
-    }
-
-    window.$chatwoot.setCustomAttributes(customAttrs);
-  }
-
-  window.addEventListener("chatwoot:ready", async function () {
-    try {
-      const geoRes = await fetch('https://get.geojs.io/v1/ip/geo.json');
-      const geoData = await geoRes.json();
-      if (geoData) {
-        window.$chatwoot.setCustomAttributes({
-          "Location": geoData.country + " - " + geoData.region + " - " + geoData.city
-        });
-      }
-    } catch(e) {}
-
-    setTimeout(syncDataToChatwoot, 500);
-    window.addEventListener('hashchange', () => setTimeout(syncDataToChatwoot, 500));
-    window.addEventListener('popstate', () => setTimeout(syncDataToChatwoot, 500));
-  });
 </script>
 
 
     
 </body>
 </html>
+
 
 
 
