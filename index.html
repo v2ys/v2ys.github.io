@@ -8,11 +8,13 @@
     <link rel="icon" href="https://s2.loli.net/2023/03/06/d5FHioeLJBnK3mY.jpg" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        /* 修复项：使用稳定的公共 CDN 引入鸿蒙字体，解决 404 报错 */
         @font-face {
             font-family: 'HarmonyOS Sans SC';
-            src: url('/diy/ziti/HarmonyOS_Sans_SC_Regular.woff2') format('woff2');
+            src: url('https://npm.elemecdn.com/harmonyos-sans/fonts/regular/HarmonyOS_Sans_SC_Regular.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
+            font-display: swap;
         }
         :root {
             --primary-color: #3b82f6;
@@ -217,12 +219,5 @@
   })(document,"script");
 </script>
 
-
-    
 </body>
 </html>
-
-
-
-
-
